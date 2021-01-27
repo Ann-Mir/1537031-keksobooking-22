@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Анна](https://up.htmlacademy.ru/javascript/22/user/1537031).
-* Наставник: `Неизвестно`.
+* Наставник: Виктор Кан (https://htmlacademy.ru/profile/viktorkan).
 
 ---
 
