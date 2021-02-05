@@ -39,7 +39,7 @@ const FEATURES = [
 const PHOTOS = [
   'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
-  'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
+  'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
 ];
 
 
