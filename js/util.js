@@ -49,5 +49,5 @@ export {
   getRandomInteger,
   getRandomFloatWithPrecision,
   getRandomValueFromArray,
-  getRandomLengthArray,
+  getRandomLengthArray
 };

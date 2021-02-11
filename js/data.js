@@ -2,7 +2,7 @@ import {
   getRandomInteger,
   getRandomFloatWithPrecision,
   getRandomValueFromArray,
-  getRandomLengthArray,
+  getRandomLengthArray
 } from './util.js';
 
 const TITLE = 'Объявление об аренде недвижимости';
