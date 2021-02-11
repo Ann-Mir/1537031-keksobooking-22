@@ -20,7 +20,7 @@ const MAX_LATITUDE = 35.70000;
 const MIN_LONGITUDE = 139.70000;
 const MAX_LONGITUDE = 139.80000;
 const LOCATION_PRECISION = 5;
-
+const ADDS_COUNT = 10;
 
 const CHECKINTIMES = [
   '12:00',
@@ -79,4 +79,8 @@ function getOffer() {
   return ad;
 }
 
-export { getOffer }
+const offers = [];
+
+for (let i = 0; i < ADDS_COUNT; i++) {
+  offers.push(getOffer());
+}
