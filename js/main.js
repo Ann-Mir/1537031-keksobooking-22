@@ -6,5 +6,3 @@ const offers = [];
 for (let i = 0; i < ADDS_COUNT; i++) {
   offers.push(getOffer());
 }
-
-console.log(offers);
