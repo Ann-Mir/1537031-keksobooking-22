@@ -45,9 +45,40 @@ function getRandomLengthArray(arr) {
   return result;
 }
 
+function getOfferType(type) {
+  const offers = {
+    flat: 'Квартрира',
+    bungalow: 'Бунгало',
+    house: 'Дом',
+    palace: 'Дворец',
+  }
+  return offers[type];
+}
+
+function getGuestsNumber(guests) {
+  return (guests % 10 === 1 && guests !== 11) ? `${guests} гостя` : `${guests} гостей`;
+}
+
+function getRoomsNumber(rooms) {
+  const reminder = rooms % 10;
+  if (rooms >= 5 && rooms <= 20 || rooms === 0) {
+    return `${rooms} комнат`;
+  }
+  if (reminder === 1) {
+    return `${rooms} комната`;
+  }
+  if (reminder > 1 && reminder < 5) {
+    return `${rooms} комнаты`;
+  }
+  return `${rooms} комнат`;
+}
+
 export {
   getRandomInteger,
   getRandomFloatWithPrecision,
   getRandomValueFromArray,
-  getRandomLengthArray
+  getRandomLengthArray,
+  getOfferType,
+  getRoomsNumber,
+  getGuestsNumber
 };

@@ -79,8 +79,14 @@ function getOffer() {
   return ad;
 }
 
-const offers = [];
 
-for (let i = 0; i < ADDS_COUNT; i++) {
-  offers.push(getOffer());
+const getOffers = () => {
+  const offers = [];
+  for (let i = 0; i < ADDS_COUNT; i++) {
+    offers.push(getOffer());
+  }
+  return offers;
 }
+
+
+export { getOffers, FEATURES };
