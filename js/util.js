@@ -1,4 +1,4 @@
-function getRandomInteger(from, to) {
+const getRandomInteger = (from, to) => {
   if (from < 0 || to < 0) {
     throw new Error('Non-negative arguments are expected');
   }
@@ -13,8 +13,7 @@ function getRandomInteger(from, to) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-
-function getRandomFloatWithPrecision(from, to, decimalPlaces= 1) {
+const getRandomFloatWithPrecision = (from, to, decimalPlaces= 1) => {
   if (from < 0 || to < 0) {
     throw new Error('Non-negative arguments are expected');
   }
@@ -25,19 +24,19 @@ function getRandomFloatWithPrecision(from, to, decimalPlaces= 1) {
   return Number((Math.random() * (max - min) + min).toFixed(decimalPlaces));
 }
 
-function getRandomValueFromArray(arr) {
+const getRandomValueFromArray = (arr) => {
   const index = getRandomInteger(0, arr.length - 1);
   return arr[index];
 }
 
-function shuffleArray(arr) {
+const shuffleArray = (arr) => {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
 }
 
-function getRandomLengthArray(arr) {
+const getRandomLengthArray = (arr) => {
   const length = getRandomInteger(0, arr.length);
   const shuffledArray = new Array(...arr);
   shuffleArray(shuffledArray);
@@ -45,7 +44,7 @@ function getRandomLengthArray(arr) {
   return result;
 }
 
-function getOfferType(type) {
+const getOfferType = (type) => {
   const offers = {
     flat: 'Квартрира',
     bungalow: 'Бунгало',
@@ -55,11 +54,11 @@ function getOfferType(type) {
   return offers[type];
 }
 
-function getGuestsNumber(guests) {
+const getGuestsNumber = (guests) => {
   return (guests % 10 === 1 && guests !== 11) ? `${guests} гостя` : `${guests} гостей`;
 }
 
-function getRoomsNumber(rooms) {
+const getRoomsNumber = (rooms) => {
   const reminder = rooms % 10;
   if (rooms >= 5 && rooms <= 20 || rooms === 0) {
     return `${rooms} комнат`;

@@ -47,12 +47,12 @@ const PHOTOS = [
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
 ];
 
-function getAvatarUrl() {
+const getAvatarUrl = () => {
   const number = getRandomInteger(MIN_AVATAR_NUMBER , MAX_AVATAR_NUMBER);
   return `img/avatars/user0${number}.png`;
 }
 
-function getOffer() {
+const getOffer = () => {
   const ad = {
     author: {
       avatar: getAvatarUrl(),
@@ -79,7 +79,6 @@ function getOffer() {
   return ad;
 }
 
-
 const getOffers = () => {
   const offers = [];
   for (let i = 0; i < ADDS_COUNT; i++) {
@@ -87,6 +86,5 @@ const getOffers = () => {
   }
   return offers;
 }
-
 
 export { getOffers, FEATURES };
