@@ -62,9 +62,11 @@ const createCardElement = (({author, offer}) => {
   return cardElement;
 })
 
-const renderCard = (parentElement, cardElement) => {
-  parentElement.append(cardElement);
+const renderCard = (parentElement, advertisement) => {
+  const card = createCardElement(advertisement);
+  parentElement.append(card);
 }
 
-const card = createCardElement(ads[0]);
-renderCard(map, card);
+renderCard(map, ads[0]);
+
+export { renderCard }
