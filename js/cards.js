@@ -1,40 +1,45 @@
-import { getOffers, FEATURES } from './data.js';
+import { getOffers } from './data.js';
 import {
   getOfferType,
   getGuestsNumber,
   getRoomsNumber
 } from './util.js';
 
+const map = document.querySelector('#map-canvas');
+const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
+
+const ads = getOffers();
+
+const isElementVisible = (element, components) => {
+  if (components.length === 0) {
+    element.setAttribute('style', 'visibility: hidden;');
+    return false;
+  }
+  element.setAttribute('style', 'visibility: visible;');
+  return true;
+}
+
 const setAdPhotos = (photosElement, offer) => {
-  if (offer.photos.length === 0) {
-    photosElement.setAttribute('style', 'visibility: hidden;');
+  if (!isElementVisible(photosElement, offer.photos)) {
     return;
   }
-  const image = photosElement.querySelector('.popup__photo');
-  image.setAttribute('src', offer.photos[0]);
-  if (offer.photos.length === 1) {
-    return;
-  }
-  for (let i = 1; i < offer.photos.length; i++) {
-    const offerImage = photosElement.querySelector('.popup__photo').cloneNode(true);
-    offerImage.setAttribute('src', offer.photos[i]);
-    photosElement.appendChild(offerImage);
-  }
+
+  photosElement.innerHTML = offer.photos.map((photo) => {
+    return `<img src="${photo}" class="popup__photo" width="45" height="40" alt="Фотография жилья">`;
+  }).join('');
 }
 
 const setAdFeatures = (featuresElement, offer) => {
-  FEATURES.forEach((feature) => {
-    if (!offer.features.includes(feature)) {
-      featuresElement.querySelector(`.popup__feature--${feature}`).setAttribute('style', 'display: none;');
-    }
-  })
+  if (!isElementVisible(featuresElement, offer.features)) {
+    return;
+  }
+
+  featuresElement.innerHTML = offer.features.map((feature) => {
+    return `<li class="popup__feature popup__feature--${feature}"></li>`;
+  }).join('');
 }
 
-const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
-const ads = getOffers();
-const adFragment = document.createDocumentFragment();
-
-ads.forEach(({author, offer}) => {
+const createCardElement = (({author, offer}) => {
   const cardElement = cardTemplate.cloneNode(true);
 
   cardElement.querySelector('.popup__title').textContent = offer.title;
@@ -54,8 +59,12 @@ ads.forEach(({author, offer}) => {
 
   cardElement.querySelector('.popup__avatar').setAttribute('src', `${author.avatar}`);
 
-  adFragment.appendChild(cardElement);
+  return cardElement;
 })
 
-const map = document.querySelector('#map-canvas');
-map.appendChild(adFragment.querySelector('.popup'));
+const renderCard = (parentElement, cardElement) => {
+  parentElement.append(cardElement);
+}
+
+const card = createCardElement(ads[0]);
+renderCard(map, card);
