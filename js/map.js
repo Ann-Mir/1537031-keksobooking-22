@@ -1,16 +1,19 @@
 /* global L:readonly */
 import { activateMapForm, deactivateMapForm, fillAddress } from './form.js';
+import { ads } from './data.js';
+import { createCardElement } from './cards.js';
 
 const STARTING_LATITUDE = 35.6804;
 const STARTING_LONGITUDE = 139.7690;
+const STARING_ZOOM = 12;
 deactivateMapForm();
 
 const map = L.map('map-canvas')
-  .on('load', activateMapForm)
+  .on('load', activateMapForm({lat: STARTING_LATITUDE, long: STARTING_LONGITUDE}))
   .setView({
     lat: STARTING_LATITUDE,
     lng: STARTING_LONGITUDE,
-  }, 10);
+  }, STARING_ZOOM);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -39,12 +42,38 @@ const mainPinMarker = L.marker(
 mainPinMarker.addTo(map);
 
 mainPinMarker.on('moveend', (evt) => {
-  console.log(evt.target.getLatLng());
   const address = {
     lat: evt.target.getLatLng().lat,
-    long: evt.target.getLatLng().lng
+    long: evt.target.getLatLng().lng,
   }
   fillAddress(address);
 });
 
-/*mainPinMarker.remove();*/
+
+ads.forEach(({author, location, offer}) => {
+  const icon = L.icon({
+    iconUrl: 'img/pin.svg',
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+  });
+  const lat = location.x;
+  const lng = location.y;
+  const marker = L.marker(
+    {
+      lat,
+      lng,
+    },
+    {
+      icon,
+    },
+  );
+
+  marker
+    .addTo(map)
+    .bindPopup(
+      createCardElement({author, offer}),
+      {
+        keepInView: true,
+      },
+    );
+});

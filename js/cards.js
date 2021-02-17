@@ -1,14 +1,10 @@
-import { getOffers } from './data.js';
 import {
   getOfferType,
   getGuestsNumber,
   getRoomsNumber
 } from './util.js';
 
-const map = document.querySelector('#map-canvas');
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
-
-const ads = getOffers();
 
 const isElementVisible = (element, components) => {
   if (components.length === 0) {
@@ -67,4 +63,4 @@ const renderCard = (parentElement, advertisement) => {
   parentElement.append(card);
 }
 
-export { renderCard }
+export { renderCard, createCardElement }
