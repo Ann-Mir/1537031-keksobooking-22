@@ -67,6 +67,4 @@ const renderCard = (parentElement, advertisement) => {
   parentElement.append(card);
 }
 
-renderCard(map, ads[0]);
-
 export { renderCard }
