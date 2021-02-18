@@ -1,8 +1,12 @@
-import { LOCATION_PRECISION } from './data.js';
+import { LOCATION_PRECISION, MIN_PRICES } from './data.js';
 
 const adForm = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
 const addressField = adForm.querySelector('#address');
+const typeField = adForm.querySelector('#type');
+const priceInput = adForm.querySelector('#price');
+const checkInField = adForm.querySelector('#timein');
+const checkOutField = adForm.querySelector('#timeout');
 
 const deactivateMapForm = () => {
   adForm.classList.add('ad-form--disabled');
@@ -20,7 +24,6 @@ const deactivateMapForm = () => {
 }
 
 const fillAddress = ({lat, long}) => {
-
   const latitude = lat.toFixed(LOCATION_PRECISION);
   const longitude = long.toFixed(LOCATION_PRECISION);
   addressField.value = `${latitude} ${longitude}`;
@@ -46,6 +49,24 @@ const activateMapForm = (startingAddress) => {
   }
 }
 
+const onTypeChange = () => {
+  const type = typeField.value;
+  const minPrice = MIN_PRICES[type];
+  priceInput.placeholder = minPrice;
+  priceInput.min = minPrice;
+}
 
+const onCheckInChange = () => {
+  checkOutField.value = checkInField.value;
+}
+
+const onCheckOutChange = () => {
+  checkInField.value = checkOutField.value;
+}
+
+typeField.addEventListener('change', onTypeChange);
+
+checkInField.addEventListener('change', onCheckInChange);
+checkOutField.addEventListener('change', onCheckOutChange);
 
 export { deactivateMapForm, activateMapForm, fillAddress };
