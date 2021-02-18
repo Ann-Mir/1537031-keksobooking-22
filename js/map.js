@@ -41,14 +41,15 @@ const mainPinMarker = L.marker(
 
 mainPinMarker.addTo(map);
 
-mainPinMarker.on('moveend', (evt) => {
+const setAddressByPinPosition = (evt) => {
   const address = {
     lat: evt.target.getLatLng().lat,
     long: evt.target.getLatLng().lng,
   }
   fillAddress(address);
-});
+}
 
+mainPinMarker.on('move', setAddressByPinPosition);
 
 ads.forEach(({author, location, offer}) => {
   const icon = L.icon({
