@@ -87,4 +87,6 @@ const getOffers = () => {
   return offers;
 }
 
-export { getOffers, FEATURES };
+const ads = getOffers();
+
+export { getOffers, ads, LOCATION_PRECISION };
