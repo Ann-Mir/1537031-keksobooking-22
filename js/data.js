@@ -22,6 +22,13 @@ const MAX_LONGITUDE = 139.80000;
 const LOCATION_PRECISION = 5;
 const ADDS_COUNT = 10;
 
+const MIN_PRICES = {
+  'palace': 10000,
+  'flat': 1000,
+  'house': 5000,
+  'bungalow': 0,
+}
+
 const CHECKINTIMES = [
   '12:00',
   '13:00',
@@ -53,7 +60,7 @@ const getAvatarUrl = () => {
 }
 
 const getOffer = () => {
-  const ad = {
+  const advertisement = {
     author: {
       avatar: getAvatarUrl(),
     },
@@ -75,8 +82,8 @@ const getOffer = () => {
     },
   }
 
-  ad.offer.address = `${ad.location.x}, ${ad.location.y}`;
-  return ad;
+  advertisement.offer.address = `${advertisement.location.x}, ${advertisement.location.y}`;
+  return advertisement;
 }
 
 const getOffers = () => {
@@ -87,6 +94,6 @@ const getOffers = () => {
   return offers;
 }
 
-const ads = getOffers();
+const advertisements = getOffers();
 
-export { getOffers, ads, LOCATION_PRECISION };
+export { getOffers, advertisements, LOCATION_PRECISION, MIN_PRICES };
