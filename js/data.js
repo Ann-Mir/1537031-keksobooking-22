@@ -22,7 +22,7 @@ const MAX_LONGITUDE = 139.80000;
 const LOCATION_PRECISION = 5;
 const ADDS_COUNT = 10;
 
-const MIN_PRICES = {
+const minPrices = {
   'palace': 10000,
   'flat': 1000,
   'house': 5000,
@@ -96,4 +96,4 @@ const getOffers = () => {
 
 const advertisements = getOffers();
 
-export { getOffers, advertisements, LOCATION_PRECISION, MIN_PRICES };
+export { getOffers, advertisements, LOCATION_PRECISION, minPrices };
