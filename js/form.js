@@ -1,5 +1,9 @@
 import { LOCATION_PRECISION, minPrices } from './data.js';
 
+const MIN_TITLE_LENGTH = 30;
+const MAX_TITLE_LENGTH = 100;
+const MAX_PRICE_PER_NIGHT = 1000000;
+
 const adForm = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
 const addressField = adForm.querySelector('#address');
@@ -9,15 +13,35 @@ const priceInput = adForm.querySelector('#price');
 const checkInField = adForm.querySelector('#timein');
 const checkOutField = adForm.querySelector('#timeout');
 const roomsNumberSelect = adForm.querySelector('#room_number');
-const capacitySelect = adForm.querySelector('#capacity');
-const capacityOptions = capacitySelect.querySelectorAll('option');
 
-/*Может быть эти константы объявлять только в функциях, в которых они используются?*/
-const MIN_TITLE_LENGTH = 30;
-const MAX_TITLE_LENGTH = 100;
-const MAX_PRICE_PER_NIGHT = 1000000;
-const MIN_GUESTS_NUMBER = 0;
-const MAX_ROOMS_NUMBER = 100;
+const capacitySelect = adForm.querySelector('#capacity');
+
+const roomValues = {
+  1: [1],
+  2: [1, 2],
+  3: [1, 2, 3],
+  100: [0],
+};
+
+const onRoomsNumberSelect = () => {
+  const seatingCapacityOptions = capacitySelect.querySelectorAll('option');
+  const roomsNumber =  Number(roomsNumberSelect.value);
+  seatingCapacityOptions.forEach((option) => {
+    option.disabled = true;
+  });
+
+  roomValues[roomsNumber].forEach((seatsAmount) => {
+    seatingCapacityOptions.forEach((option) => {
+      if (Number(option.value) === seatsAmount) {
+        option.disabled = false;
+      }
+    });
+    if (!roomValues[roomsNumber].includes(Number(capacitySelect.value))) {
+      const maxCapacity = roomValues[roomsNumber][roomValues[roomsNumber].length - 1];
+      capacitySelect.value = maxCapacity;
+    }
+  });
+};
 
 const deactivateMapForm = () => {
   adForm.classList.add('ad-form--disabled');
@@ -81,37 +105,6 @@ const onPriceInput = () => {
   priceInput.reportValidity();
 }
 
-const onRoomsNumberSelect = () => {
-  const roomsNumber = Number(roomsNumberSelect.value);
-  /* Какая-то здесь некрасивая вложенность получается, и куча if-ов,
-  но вариант с setCustomValidity в этом
-  случае мне совсем не нравится с точки зрения пользователя. Не знаю, как отрефакторить.
-  Получившйся вариант поведения меня больше всего устраивает как пользоателя тем,
-   что не дает выбрать заведомо невалидные значения */
-  if (roomsNumber === MAX_ROOMS_NUMBER) {
-    capacitySelect.value = MIN_GUESTS_NUMBER;
-    capacityOptions.forEach((option) => {
-      if (Number(option.value) > MIN_GUESTS_NUMBER) {
-        option.disabled = true;
-      } else {
-        option.disabled = false;
-      }
-    })
-    return;
-  }
-  capacityOptions.forEach((option) => {
-    if (Number(option.value) > roomsNumber || Number(option.value) === MIN_GUESTS_NUMBER) {
-      option.disabled = true;
-    } else {
-      option.disabled = false;
-    }
-  })
-  if (Number(capacitySelect.value) > roomsNumber || Number(capacitySelect.value) === MIN_GUESTS_NUMBER) {
-    capacitySelect.value = roomsNumber;
-  }
-}
-
-/*Чтобы форму сразу привести к правильным значениям при загрузке. Или проще в разметке выбранные значения поменять?*/
 const initiateForm = () => {
   onRoomsNumberSelect();
   onTypeChange();
