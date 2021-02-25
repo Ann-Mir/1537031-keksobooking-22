@@ -1,4 +1,7 @@
 import { LOCATION_PRECISION, minPrices } from './data.js';
+import { sendData } from './api.js';
+import { showSuccessModal } from './success-modal.js';
+
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -13,7 +16,7 @@ const priceInput = adForm.querySelector('#price');
 const checkInField = adForm.querySelector('#timein');
 const checkOutField = adForm.querySelector('#timeout');
 const roomsNumberSelect = adForm.querySelector('#room_number');
-
+const adFormResetButton = adForm.querySelector('.ad-form__reset');
 const capacitySelect = adForm.querySelector('#capacity');
 
 const roomValues = {
@@ -105,13 +108,6 @@ const onPriceInput = () => {
   priceInput.reportValidity();
 }
 
-const initiateForm = () => {
-  onRoomsNumberSelect();
-  onTypeChange();
-  onCheckInChange();
-  onCheckOutChange();
-}
-
 const activateMapForm = (startingAddress) => {
   return () => {
     adForm.classList.remove('ad-form--disabled');
@@ -130,9 +126,24 @@ const activateMapForm = (startingAddress) => {
     addressField.setAttribute('readonly', 'readonly');
     fillAddress(startingAddress);
 
-    initiateForm();
+    onResetAdForm();
   }
 }
+
+const onResetAdForm = () => {
+  onRoomsNumberSelect();
+  onTypeChange();
+  onCheckInChange();
+  onCheckOutChange();
+}
+
+adFormResetButton.addEventListener('click', onResetAdForm);
+
+const onSuccessFormSubmit = () => {
+  onResetAdForm();
+  showSuccessModal();
+}
+
 
 typeField.addEventListener('change', onTypeChange);
 checkInField.addEventListener('change', onCheckInChange);
@@ -142,4 +153,22 @@ priceInput.addEventListener('input', onPriceInput);
 roomsNumberSelect.addEventListener('change', onRoomsNumberSelect);
 
 
-export { deactivateMapForm, activateMapForm, fillAddress };
+const advertisementFormSubmit = (onSuccess, onError) => {
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    sendData(
+      () => onSuccess(),
+      () => onError(),
+      new FormData(evt.target),
+    );
+  });
+};
+
+export {
+  deactivateMapForm,
+  activateMapForm,
+  fillAddress,
+  advertisementFormSubmit,
+  onSuccessFormSubmit
+};

@@ -1,11 +1,10 @@
 /* global L:readonly */
 import { activateMapForm, deactivateMapForm, fillAddress } from './form.js';
-import { advertisements } from './data.js';
 import { createCardElement } from './cards.js';
 
 const STARTING_LATITUDE = 35.6804;
 const STARTING_LONGITUDE = 139.7690;
-const STARING_ZOOM = 12;
+const STARING_ZOOM = 9;
 const MAIN_POINTER_WIDTH = 52;
 const POINTER_WIDTH = 40;
 
@@ -54,30 +53,34 @@ const onPinMove = (evt) => {
 
 mainPinMarker.on('move', onPinMove);
 
-advertisements.forEach(({author, location, offer}) => {
-  const icon = L.icon({
-    iconUrl: 'img/pin.svg',
-    iconSize: [POINTER_WIDTH, POINTER_WIDTH],
-    iconAnchor: [POINTER_WIDTH / 2, POINTER_WIDTH],
-  });
-  const lat = location.x;
-  const lng = location.y;
-  const marker = L.marker(
-    {
-      lat,
-      lng,
-    },
-    {
-      icon,
-    },
-  );
-
-  marker
-    .addTo(map)
-    .bindPopup(
-      createCardElement({author, offer}),
+const renderCards = (advertisements) => {
+  advertisements.forEach(({author, location, offer}) => {
+    const icon = L.icon({
+      iconUrl: 'img/pin.svg',
+      iconSize: [POINTER_WIDTH, POINTER_WIDTH],
+      iconAnchor: [POINTER_WIDTH / 2, POINTER_WIDTH],
+    });
+    const lat = location.lat;
+    const lng = location.lng;
+    const marker = L.marker(
       {
-        keepInView: true,
+        lat,
+        lng,
+      },
+      {
+        icon,
       },
     );
-});
+
+    marker
+      .addTo(map)
+      .bindPopup(
+        createCardElement({author, offer}),
+        {
+          keepInView: true,
+        },
+      );
+  });
+}
+
+export { renderCards };

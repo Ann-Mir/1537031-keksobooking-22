@@ -21,6 +21,7 @@ const MIN_LONGITUDE = 139.70000;
 const MAX_LONGITUDE = 139.80000;
 const LOCATION_PRECISION = 5;
 const ADDS_COUNT = 10;
+const MIN_ADDS = 0;
 
 const minPrices = {
   'palace': 10000,
@@ -65,8 +66,8 @@ const getOffer = () => {
       avatar: getAvatarUrl(),
     },
     location: {
-      x: getRandomFloatWithPrecision(MIN_LATITUDE, MAX_LATITUDE, LOCATION_PRECISION),
-      y: getRandomFloatWithPrecision(MIN_LONGITUDE, MAX_LONGITUDE, LOCATION_PRECISION),
+      lat: getRandomFloatWithPrecision(MIN_LATITUDE, MAX_LATITUDE, LOCATION_PRECISION),
+      lng: getRandomFloatWithPrecision(MIN_LONGITUDE, MAX_LONGITUDE, LOCATION_PRECISION),
     },
     offer: {
       title: TITLE,
@@ -82,7 +83,7 @@ const getOffer = () => {
     },
   }
 
-  advertisement.offer.address = `${advertisement.location.x}, ${advertisement.location.y}`;
+  advertisement.offer.address = `${advertisement.location.lat}, ${advertisement.location.lng}`;
   return advertisement;
 }
 
@@ -96,4 +97,4 @@ const getOffers = () => {
 
 const advertisements = getOffers();
 
-export { getOffers, advertisements, LOCATION_PRECISION, minPrices };
+export { getOffers, advertisements, LOCATION_PRECISION, minPrices, MIN_ADDS, ADDS_COUNT };
