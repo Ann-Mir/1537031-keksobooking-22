@@ -95,6 +95,5 @@ const getOffers = () => {
   return offers;
 }
 
-const advertisements = getOffers();
 
-export { getOffers, advertisements, LOCATION_PRECISION, minPrices, MIN_ADDS, ADDS_COUNT };
+export { getOffers, LOCATION_PRECISION, minPrices, MIN_ADDS, ADDS_COUNT };

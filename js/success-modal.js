@@ -1,4 +1,4 @@
-import { isEnterEvent, isEscEvent } from './util.js';
+import { isEscEvent } from './util.js';
 
 const successModal = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
 const errorModal = document.querySelector('#error').content.querySelector('.error').cloneNode(true);

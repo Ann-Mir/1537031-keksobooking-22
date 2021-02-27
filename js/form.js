@@ -1,8 +1,5 @@
-import {LOCATION_PRECISION, minPrices} from './data.js';
-import {sendData} from './api.js';
-import { showSuccessModal } from './success-modal.js';
-
-
+import { LOCATION_PRECISION, minPrices } from './data.js';
+import { sendData } from './api.js';
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -109,9 +106,7 @@ const onPriceInput = () => {
   priceInput.reportValidity();
 }
 
-const activateMapForm = (/*startingAddress*/) => {
-
-    /*onResetAdForm();*/
+const activateMapForm = () => {
   adForm.classList.remove('ad-form--disabled');
 
   adForm.querySelectorAll('fieldset').forEach((fieldset) => {
@@ -126,26 +121,13 @@ const activateMapForm = (/*startingAddress*/) => {
     feature.classList.remove('disabled');
   });
   addressField.setAttribute('readonly', 'readonly');
-
-    /*fillAddress(startingAddress);*/
-
-
 }
 
 const onResetAdForm = () => {
-  console.log('entered on reset ad form');
   onTypeChange();
   onRoomsNumberSelect();
   onCheckInChange();
   onCheckOutChange();
-  console.log('finished on reset ad form');
-}
-
-
-const onSuccessFormSubmit = () => {
-  adForm.reset();
-  showSuccessModal();
-
 }
 
 typeField.addEventListener('change', onTypeChange);
@@ -172,7 +154,6 @@ export {
   activateMapForm,
   fillAddress,
   advertisementFormSubmit,
-  onSuccessFormSubmit,
   adFormResetButton,
   onResetAdForm,
   adForm
