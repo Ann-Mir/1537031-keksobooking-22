@@ -1,12 +1,11 @@
 import { isEnterEvent, isEscEvent } from './util.js';
 
-const successModal = document.querySelector('#success').content.querySelector('.success');
-const errorModal = document.querySelector('#error').content.querySelector('.error');
+const successModal = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
+const errorModal = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
 successModal.classList.add('hidden');
 errorModal.classList.add('hidden');
 document.body.append(successModal);
 document.body.append(errorModal);
-
 
 const closeModal = (modal) => {
   modal.classList.add('hidden');

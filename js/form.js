@@ -1,6 +1,7 @@
-import { LOCATION_PRECISION, minPrices } from './data.js';
-import { sendData } from './api.js';
+import {LOCATION_PRECISION, minPrices} from './data.js';
+import {sendData} from './api.js';
 import { showSuccessModal } from './success-modal.js';
+
 
 
 const MIN_TITLE_LENGTH = 30;
@@ -61,7 +62,7 @@ const deactivateMapForm = () => {
   })
 }
 
-const fillAddress = ({lat, long}) => {
+const fillAddress = (lat, long) => {
   const latitude = lat.toFixed(LOCATION_PRECISION);
   const longitude = long.toFixed(LOCATION_PRECISION);
   addressField.value = `${latitude} ${longitude}`;
@@ -108,42 +109,44 @@ const onPriceInput = () => {
   priceInput.reportValidity();
 }
 
-const activateMapForm = (startingAddress) => {
-  return () => {
-    adForm.classList.remove('ad-form--disabled');
+const activateMapForm = (/*startingAddress*/) => {
 
-    adForm.querySelectorAll('fieldset').forEach((fieldset) => {
-      fieldset.classList.remove('disabled');
-    });
+    /*onResetAdForm();*/
+  adForm.classList.remove('ad-form--disabled');
 
-    mapFilters.classList.remove('map__filters--disabled');
-    mapFilters.querySelectorAll('.map__filter').forEach((filter) => {
-      filter.classList.remove('disabled');
-    });
-    mapFilters.querySelectorAll('.map__features').forEach((feature) => {
-      feature.classList.remove('disabled');
-    });
-    addressField.setAttribute('readonly', 'readonly');
-    fillAddress(startingAddress);
+  adForm.querySelectorAll('fieldset').forEach((fieldset) => {
+    fieldset.classList.remove('disabled');
+  });
 
-    onResetAdForm();
-  }
+  mapFilters.classList.remove('map__filters--disabled');
+  mapFilters.querySelectorAll('.map__filter').forEach((filter) => {
+    filter.classList.remove('disabled');
+  });
+  mapFilters.querySelectorAll('.map__features').forEach((feature) => {
+    feature.classList.remove('disabled');
+  });
+  addressField.setAttribute('readonly', 'readonly');
+
+    /*fillAddress(startingAddress);*/
+
+
 }
 
 const onResetAdForm = () => {
-  onRoomsNumberSelect();
+  console.log('entered on reset ad form');
   onTypeChange();
+  onRoomsNumberSelect();
   onCheckInChange();
   onCheckOutChange();
+  console.log('finished on reset ad form');
 }
 
-adFormResetButton.addEventListener('click', onResetAdForm);
 
 const onSuccessFormSubmit = () => {
-  onResetAdForm();
+  adForm.reset();
   showSuccessModal();
-}
 
+}
 
 typeField.addEventListener('change', onTypeChange);
 checkInField.addEventListener('change', onCheckInChange);
@@ -151,7 +154,6 @@ checkOutField.addEventListener('change', onCheckOutChange);
 titleInput.addEventListener('input', onTitleInput);
 priceInput.addEventListener('input', onPriceInput);
 roomsNumberSelect.addEventListener('change', onRoomsNumberSelect);
-
 
 const advertisementFormSubmit = (onSuccess, onError) => {
   adForm.addEventListener('submit', (evt) => {
@@ -170,5 +172,8 @@ export {
   activateMapForm,
   fillAddress,
   advertisementFormSubmit,
-  onSuccessFormSubmit
+  onSuccessFormSubmit,
+  adFormResetButton,
+  onResetAdForm,
+  adForm
 };
