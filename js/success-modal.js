@@ -31,12 +31,14 @@ const onClick = (modal) => {
 
 const showSuccessModal = () => {
   successModal.classList.remove('hidden');
+  successModal.style.zIndex = '10000';
   document.addEventListener('keydown', onPopupEscKeydown(successModal));
   document.addEventListener('click', onClick(successModal));
 }
 
 const showErrorModal = () => {
   errorModal.classList.remove('hidden');
+  errorModal.style.zIndex = '10000';
   document.addEventListener('keydown', onPopupEscKeydown(errorModal));
   document.addEventListener('click', onClick(errorModal));
   const tryAgainButton = errorModal.querySelector('.error__button');

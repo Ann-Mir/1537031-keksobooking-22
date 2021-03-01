@@ -1,11 +1,10 @@
-
 import './data.js';
 import './cards.js';
 import './form.js';
 import './map.js';
 import './api.js';
 import { resetMainPinMarker, setUpMap, STARTING_LATITUDE, STARTING_LONGITUDE } from './map.js';
-import { getData } from './api.js';
+import { processData } from './api.js';
 import { ADDS_COUNT, MIN_ADDS } from './data.js';
 import { showAlert } from './util.js';
 import {
@@ -18,6 +17,7 @@ import {
 } from './form.js';
 import { showErrorModal, showSuccessModal } from './success-modal.js';
 
+const GET_URL = 'https://22.javascript.pages.academy/keksobooking/data';
 
 const setDefaults = () => {
   adForm.reset();
@@ -28,14 +28,14 @@ const setDefaults = () => {
 
 deactivateMapForm();
 
-getData((advertisements) => {
+processData(GET_URL, (advertisements) => {
   setUpMap(advertisements.slice(MIN_ADDS, ADDS_COUNT));
-}, (message) => showAlert(message));
+}, showAlert('Не удалось загрузить данные об объектах'));
 
 advertisementFormSubmit(() => {
   showSuccessModal();
   setDefaults();
-}, () => showErrorModal);
+}, showErrorModal); /* showErrorModal срабатывает только один раз. Если посторно пытаться отправить форму, окно с ошибкой не появляется. Есть варианты это исправить? */
 
 adFormResetButton.addEventListener('click', (evt) => {
   evt.preventDefault();

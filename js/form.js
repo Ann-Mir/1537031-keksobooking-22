@@ -1,9 +1,10 @@
 import { LOCATION_PRECISION, minPrices } from './data.js';
-import { sendData } from './api.js';
+import { postData } from './api.js';
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE_PER_NIGHT = 1000000;
+const POST_URL = 'https://22.javascript.pages.academy/keksobooking';
 
 const adForm = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
@@ -141,9 +142,10 @@ const advertisementFormSubmit = (onSuccess, onError) => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
-    sendData(
-      () => onSuccess(),
-      () => onError(),
+    postData(
+      POST_URL,
+      onSuccess,
+      onError,
       new FormData(evt.target),
     );
   });
