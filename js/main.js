@@ -4,7 +4,7 @@ import './form.js';
 import './map.js';
 import './api.js';
 import { resetMainPinMarker, setUpMap, STARTING_LATITUDE, STARTING_LONGITUDE } from './map.js';
-import { processData } from './api.js';
+import { getData } from './api.js';
 import { ADDS_COUNT, MIN_ADDS } from './data.js';
 import { showAlert } from './util.js';
 import {
@@ -28,9 +28,9 @@ const setDefaults = () => {
 
 deactivateMapForm();
 
-processData(GET_URL, (advertisements) => {
+getData(GET_URL, (advertisements) => {
   setUpMap(advertisements.slice(MIN_ADDS, ADDS_COUNT));
-}, showAlert('Не удалось загрузить данные об объектах'));
+}, showAlert('Не удалось загрузить данные об объектах'))
 
 advertisementFormSubmit(() => {
   showSuccessModal();

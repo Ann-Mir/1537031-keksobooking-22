@@ -1,5 +1,5 @@
 import { LOCATION_PRECISION, minPrices } from './data.js';
-import { postData } from './api.js';
+import { sendData } from './api.js';
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -142,7 +142,7 @@ const advertisementFormSubmit = (onSuccess, onError) => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
-    postData(
+    sendData(
       POST_URL,
       onSuccess,
       onError,
