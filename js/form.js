@@ -1,8 +1,10 @@
 import { LOCATION_PRECISION, minPrices } from './data.js';
+import { sendData } from './api.js';
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE_PER_NIGHT = 1000000;
+const POST_URL = 'https://22.javascript.pages.academy/keksobooking';
 
 const adForm = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
@@ -13,7 +15,7 @@ const priceInput = adForm.querySelector('#price');
 const checkInField = adForm.querySelector('#timein');
 const checkOutField = adForm.querySelector('#timeout');
 const roomsNumberSelect = adForm.querySelector('#room_number');
-
+const adFormResetButton = adForm.querySelector('.ad-form__reset');
 const capacitySelect = adForm.querySelector('#capacity');
 
 const roomValues = {
@@ -58,7 +60,7 @@ const deactivateMapForm = () => {
   })
 }
 
-const fillAddress = ({lat, long}) => {
+const fillAddress = (lat, long) => {
   const latitude = lat.toFixed(LOCATION_PRECISION);
   const longitude = long.toFixed(LOCATION_PRECISION);
   addressField.value = `${latitude} ${longitude}`;
@@ -105,33 +107,28 @@ const onPriceInput = () => {
   priceInput.reportValidity();
 }
 
-const initiateForm = () => {
-  onRoomsNumberSelect();
-  onTypeChange();
-  onCheckInChange();
-  onCheckOutChange();
+const activateMapForm = () => {
+  adForm.classList.remove('ad-form--disabled');
+
+  adForm.querySelectorAll('fieldset').forEach((fieldset) => {
+    fieldset.classList.remove('disabled');
+  });
+
+  mapFilters.classList.remove('map__filters--disabled');
+  mapFilters.querySelectorAll('.map__filter').forEach((filter) => {
+    filter.classList.remove('disabled');
+  });
+  mapFilters.querySelectorAll('.map__features').forEach((feature) => {
+    feature.classList.remove('disabled');
+  });
+  addressField.setAttribute('readonly', 'readonly');
 }
 
-const activateMapForm = (startingAddress) => {
-  return () => {
-    adForm.classList.remove('ad-form--disabled');
-
-    adForm.querySelectorAll('fieldset').forEach((fieldset) => {
-      fieldset.classList.remove('disabled');
-    });
-
-    mapFilters.classList.remove('map__filters--disabled');
-    mapFilters.querySelectorAll('.map__filter').forEach((filter) => {
-      filter.classList.remove('disabled');
-    });
-    mapFilters.querySelectorAll('.map__features').forEach((feature) => {
-      feature.classList.remove('disabled');
-    });
-    addressField.setAttribute('readonly', 'readonly');
-    fillAddress(startingAddress);
-
-    initiateForm();
-  }
+const onResetAdForm = () => {
+  onTypeChange();
+  onRoomsNumberSelect();
+  onCheckInChange();
+  onCheckOutChange();
 }
 
 typeField.addEventListener('change', onTypeChange);
@@ -141,5 +138,25 @@ titleInput.addEventListener('input', onTitleInput);
 priceInput.addEventListener('input', onPriceInput);
 roomsNumberSelect.addEventListener('change', onRoomsNumberSelect);
 
+const advertisementFormSubmit = (onSuccess, onError) => {
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
 
-export { deactivateMapForm, activateMapForm, fillAddress };
+    sendData(
+      POST_URL,
+      onSuccess,
+      onError,
+      new FormData(evt.target),
+    );
+  });
+};
+
+export {
+  deactivateMapForm,
+  activateMapForm,
+  fillAddress,
+  advertisementFormSubmit,
+  adFormResetButton,
+  onResetAdForm,
+  adForm
+};
