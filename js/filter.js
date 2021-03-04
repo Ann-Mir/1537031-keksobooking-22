@@ -3,10 +3,6 @@ import { removeMapMarkers, renderCards } from './map.js';
 const filterForm = document.querySelector('.map__filters');
 const filterElements = filterForm.elements;
 const housingTypeSelect = filterForm.querySelector('#housing-type');
-const housingPrice = filterForm.querySelector('#housing-price');
-const housingRooms = filterForm.querySelector('#housing-rooms');
-const housingGuests = filterForm.querySelector('#housing-guests');
-
 
 const deactivateFilter = () => {
   filterForm.classList.add('.map__filters--disabled');

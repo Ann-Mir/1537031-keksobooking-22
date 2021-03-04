@@ -7,7 +7,7 @@ import {
   resetMainPinMarker,
   setUpMap,
   STARTING_LATITUDE,
-  STARTING_LONGITUDE,
+  STARTING_LONGITUDE
 } from './map.js';
 import { getData } from './api.js';
 import { ADDS_COUNT, MIN_ADDS } from './data.js';
