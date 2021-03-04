@@ -1,6 +1,7 @@
 /* global L:readonly */
 import { activateMapForm, fillAddress, onResetAdForm } from './form.js';
 import { createCardElement } from './cards.js';
+import { activateFilter } from './filter.js';
 
 const STARTING_LATITUDE = 35.6804;
 const STARTING_LONGITUDE = 139.7690;
@@ -9,6 +10,7 @@ const MAIN_POINTER_WIDTH = 52;
 const POINTER_WIDTH = 40;
 
 const map = L.map('map-canvas');
+const markers = [];
 
 const onPinMove = (evt) => {
   const lat = evt.target.getLatLng().lat;
@@ -43,7 +45,14 @@ const renderCards = (advertisements) => {
           keepInView: true,
         },
       );
+    markers.push(marker);
   });
+}
+
+const removeMapMarkers = () => {
+  markers.forEach((marker) => {
+    marker.remove();
+  })
 }
 
 const setUpMap = (advertisements) => {
@@ -52,6 +61,7 @@ const setUpMap = (advertisements) => {
       activateMapForm();
       fillAddress(STARTING_LATITUDE, STARTING_LONGITUDE);
       onResetAdForm();
+      activateFilter();
     })
     .setView({
       lat: STARTING_LATITUDE,
@@ -97,4 +107,4 @@ const resetMainPinMarker = () => {
   mainPinMarker.setLatLng(L.latLng(STARTING_LATITUDE, STARTING_LONGITUDE));
 }
 
-export { setUpMap, resetMainPinMarker, STARTING_LATITUDE, STARTING_LONGITUDE };
+export { setUpMap, resetMainPinMarker, STARTING_LATITUDE, STARTING_LONGITUDE, renderCards, removeMapMarkers };
