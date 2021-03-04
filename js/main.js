@@ -21,11 +21,12 @@ import {
   onResetAdForm
 } from './form.js';
 import { showErrorModal, showSuccessModal } from './success-modal.js';
-import { deactivateFilter, filterAdvertisements } from './filter.js';
+import {deactivateFilter, filterAdvertisements, filterForm} from './filter.js';
 
 const GET_URL = 'https://22.javascript.pages.academy/keksobooking/data';
 
 const setDefaults = () => {
+  filterForm.reset();
   adForm.reset();
   resetMainPinMarker();
   onResetAdForm();
