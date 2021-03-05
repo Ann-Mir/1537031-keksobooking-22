@@ -2,6 +2,8 @@
 
 import {removeMapMarkers, renderCards} from './map.js';
 
+const RERENDER_DELAY = 500;
+
 const filterForm = document.querySelector('.map__filters');
 const filterElements = filterForm.elements;
 const housingTypeSelect = filterForm.querySelector('#housing-type');
@@ -66,7 +68,7 @@ const checkFeatures = (advertisement) => {
 }
 
 const getFilteredAds = (advertisements) => {
-  const filteredAdvertisements = advertisements.filter ((advertisement) => {
+  const filteredAdvertisements = advertisements.filter((advertisement) => {
     return (
       checkType(advertisement) &&
       checkPrice(advertisement) &&
@@ -78,10 +80,11 @@ const getFilteredAds = (advertisements) => {
   return filteredAdvertisements;
 }
 
+
 const onFilterChange = (advertisements) => {
   return (evt) => {
     evt.preventDefault();
-    const filteredAdds = getFilteredAds(advertisements);
+    const filteredAdds = _.debounce(() => getFilteredAds(advertisements), RERENDER_DELAY);
     removeMapMarkers();
     renderCards(filteredAdds);
   }
