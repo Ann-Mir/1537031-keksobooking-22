@@ -105,6 +105,14 @@ const isEnterEvent = (evt) => {
   return evt.key === 'Enter';
 };
 
+function debounce (fn, wait) {
+  let t;
+  return function () {
+    clearTimeout(t);
+    t = setTimeout(() => fn.apply(this, arguments), wait);
+  }
+}
+
 export {
   getRandomInteger,
   getRandomFloatWithPrecision,
@@ -115,5 +123,6 @@ export {
   getGuestsNumber,
   showAlert,
   isEscEvent,
-  isEnterEvent
+  isEnterEvent,
+  debounce
 };

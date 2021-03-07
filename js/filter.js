@@ -1,6 +1,7 @@
 /* global _:readonly */
 
 import {removeMapMarkers, renderCards} from './map.js';
+import { debounce } from './util.js';
 
 const RERENDER_DELAY = 500;
 
@@ -26,33 +27,36 @@ const activateFilter = () => {
   }
 }
 
-const checkType = (advertisement) => {
-  return housingTypeSelect.value === 'any' || advertisement.offer.type === housingTypeSelect.value;
+const checkType = (advertisement, element) => {
+  return element.value === 'any' || advertisement.offer.type === element.value;
 };
 
-const checkPrice = (advertisement) => {
-  const priceOptions = {
-    'any': () => true,
-    'low': (price) => price < 10000,
-    'middle': (price) => price >= 10000 && price < 50000,
-    'high': (price) => price >= 50000,
+const checkPrice = (advertisement, element) => {
+  const LOW_PRICE = 10000;
+  const HIGH_PRICE = 50000;
+  switch (element.value) {
+    case 'any':
+      return true;
+    case 'low':
+      return advertisement.offer.price < LOW_PRICE;
+    case 'middle':
+      return advertisement.offer.price >= LOW_PRICE && advertisement.offer.price < HIGH_PRICE;
+    case 'high':
+      return advertisement.offer.price >= HIGH_PRICE;
+    default:
+      return false;
   }
-  return priceOptions[housingPriceSelect.value](advertisement.offer.price);
 }
 
-const checkRooms = (advertisement) => {
-  return housingRoomsSelect.value === 'any' || Number(housingRoomsSelect.value) === advertisement.offer.rooms;
+const checkRooms = (advertisement, element) => {
+  return element.value === 'any' || Number(element.value) === advertisement.offer.rooms;
 }
 
-const checkGuests = (advertisement) => {
-  const guestOptions = {
-    'any': () => true,
-    '0': (guestsCount) => guestsCount === 100,
-    '1': (guestsCount) => guestsCount === 1,
-    '2': (guestsCount) => guestsCount === 2,
-    '3': (guestsCount) => guestsCount === 3,
+const checkGuests = (advertisement, element) => {
+  if (element.value === 'any') {
+    return true;
   }
-  return guestOptions[housingGuestsSelect.value](advertisement.offer.guests);
+  return parseInt(element.value, 10) === advertisement.offer.guests;
 }
 
 const checkFeatures = (advertisement) => {
@@ -70,10 +74,10 @@ const checkFeatures = (advertisement) => {
 const getFilteredAds = (advertisements) => {
   const filteredAdvertisements = advertisements.filter((advertisement) => {
     return (
-      checkType(advertisement) &&
-      checkPrice(advertisement) &&
-      checkRooms(advertisement) &&
-      checkGuests(advertisement) &&
+      checkType(advertisement, housingTypeSelect) &&
+      checkPrice(advertisement, housingPriceSelect) &&
+      checkRooms(advertisement, housingRoomsSelect) &&
+      checkGuests(advertisement, housingGuestsSelect) &&
       checkFeatures(advertisement)
     )
   })
@@ -84,7 +88,7 @@ const getFilteredAds = (advertisements) => {
 const onFilterChange = (advertisements) => {
   return (evt) => {
     evt.preventDefault();
-    const filteredAdds = _.debounce(() => getFilteredAds(advertisements), RERENDER_DELAY);
+    const filteredAdds = getFilteredAds(advertisements);
     removeMapMarkers();
     renderCards(filteredAdds);
   }
