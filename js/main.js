@@ -1,5 +1,4 @@
-
-
+import './avatar.js';
 import './data.js';
 import './cards.js';
 import './form.js';
