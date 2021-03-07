@@ -1,4 +1,5 @@
 const ALERT_SHOW_TIME = 5000;
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
 const getRandomInteger = (from, to) => {
   if (from < 0 || to < 0) {
@@ -113,6 +114,28 @@ function debounce (fn, wait) {
   }
 }
 
+const onFileUpload = (fileChooser, preview, fileTypes) => {
+  return (evt) => {
+    evt.preventDefault();
+    const file = fileChooser.files[0];
+    const fileName = file.name.toLowerCase();
+
+    const matches = fileTypes.some((it) => {
+      return fileName.endsWith(it);
+    });
+
+    if (matches) {
+      const reader = new FileReader();
+
+      reader.addEventListener('load', () => {
+        preview.src = reader.result;
+      });
+
+      reader.readAsDataURL(file);
+    }
+  }
+}
+
 export {
   getRandomInteger,
   getRandomFloatWithPrecision,
@@ -124,5 +147,7 @@ export {
   showAlert,
   isEscEvent,
   isEnterEvent,
-  debounce
+  debounce,
+  onFileUpload,
+  FILE_TYPES
 };

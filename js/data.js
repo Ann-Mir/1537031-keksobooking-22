@@ -96,4 +96,10 @@ const getOffers = () => {
 }
 
 
-export { getOffers, LOCATION_PRECISION, minPrices, MIN_ADDS, ADDS_COUNT };
+export {
+  getOffers,
+  LOCATION_PRECISION,
+  minPrices,
+  MIN_ADDS,
+  ADDS_COUNT
+};

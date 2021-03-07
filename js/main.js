@@ -1,9 +1,10 @@
+import './api.js';
 import './avatar.js';
-import './data.js';
 import './cards.js';
+import './data.js';
 import './form.js';
 import './map.js';
-import './api.js';
+import './photo.js';
 import {
   renderCards,
   resetMainPinMarker,

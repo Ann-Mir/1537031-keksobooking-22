@@ -1,4 +1,4 @@
-import {removeMapMarkers, renderCards} from './map.js';
+import { removeMapMarkers, renderCards } from './map.js';
 import { debounce } from './util.js';
 
 const RERENDER_DELAY = 500;
@@ -95,4 +95,9 @@ const setFilterChange = (advertisements) => {
   filterForm.addEventListener('change', onFilterChange(advertisements));
 };
 
-export { deactivateFilter, activateFilter, filterForm, setFilterChange }
+export {
+  deactivateFilter,
+  activateFilter,
+  filterForm,
+  setFilterChange
+}
