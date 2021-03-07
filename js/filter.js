@@ -1,5 +1,3 @@
-/* global _:readonly */
-
 import {removeMapMarkers, renderCards} from './map.js';
 import { debounce } from './util.js';
 
@@ -84,14 +82,13 @@ const getFilteredAds = (advertisements) => {
   return filteredAdvertisements;
 }
 
-
 const onFilterChange = (advertisements) => {
-  return (evt) => {
+  return debounce((evt) => {
     evt.preventDefault();
     const filteredAdds = getFilteredAds(advertisements);
     removeMapMarkers();
     renderCards(filteredAdds);
-  }
+  }, RERENDER_DELAY);
 }
 
 const setFilterChange = (advertisements) => {
