@@ -54,7 +54,7 @@ const checkGuests = (advertisement, element) => {
   if (element.value === 'any') {
     return true;
   }
-  return parseInt(element.value, 10) === advertisement.offer.guests;
+  return parseInt(element.value, 10) <= advertisement.offer.guests;
 }
 
 const checkFeatures = (advertisement) => {
