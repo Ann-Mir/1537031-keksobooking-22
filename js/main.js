@@ -1,9 +1,12 @@
-import './data.js';
+import './api.js';
+import './avatar.js';
 import './cards.js';
+import './data.js';
 import './form.js';
 import './map.js';
-import './api.js';
+import './photo.js';
 import {
+  renderCards,
   resetMainPinMarker,
   setUpMap,
   STARTING_LATITUDE,
@@ -21,15 +24,18 @@ import {
   onResetAdForm
 } from './form.js';
 import { showErrorModal, showSuccessModal } from './success-modal.js';
-import {deactivateFilter, filterAdvertisements, filterForm} from './filter.js';
+import {deactivateFilter, filterForm, setFilterChange} from './filter.js';
+
 
 const GET_URL = 'https://22.javascript.pages.academy/keksobooking/data';
+let advertisementsToRender = [];
 
 const setDefaults = () => {
   filterForm.reset();
   adForm.reset();
   resetMainPinMarker();
   onResetAdForm();
+  renderCards(advertisementsToRender);
   fillAddress(STARTING_LATITUDE, STARTING_LONGITUDE);
 }
 
@@ -37,8 +43,13 @@ deactivateMapForm();
 deactivateFilter();
 
 getData(GET_URL, (advertisements) => {
-  setUpMap(advertisements.slice(MIN_ADDS, ADDS_COUNT));
-  filterAdvertisements(advertisements);
+  advertisementsToRender = advertisements.slice(MIN_ADDS, ADDS_COUNT);
+  setUpMap(advertisementsToRender);
+  setFilterChange(advertisementsToRender);
+  adFormResetButton.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    setDefaults();
+  });
 }, showAlert('Не удалось загрузить данные об объектах'))
 
 advertisementFormSubmit(() => {
@@ -46,8 +57,5 @@ advertisementFormSubmit(() => {
   setDefaults();
 }, showErrorModal);
 
-adFormResetButton.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  setDefaults();
-});
+
 

@@ -1,4 +1,5 @@
 const ALERT_SHOW_TIME = 5000;
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
 const getRandomInteger = (from, to) => {
   if (from < 0 || to < 0) {
@@ -105,6 +106,36 @@ const isEnterEvent = (evt) => {
   return evt.key === 'Enter';
 };
 
+function debounce (fn, wait) {
+  let t;
+  return function () {
+    clearTimeout(t);
+    t = setTimeout(() => fn.apply(this, arguments), wait);
+  }
+}
+
+const onFileUpload = (fileChooser, preview, fileTypes) => {
+  return (evt) => {
+    evt.preventDefault();
+    const file = fileChooser.files[0];
+    const fileName = file.name.toLowerCase();
+
+    const matches = fileTypes.some((it) => {
+      return fileName.endsWith(it);
+    });
+
+    if (matches) {
+      const reader = new FileReader();
+
+      reader.addEventListener('load', () => {
+        preview.src = reader.result;
+      });
+
+      reader.readAsDataURL(file);
+    }
+  }
+}
+
 export {
   getRandomInteger,
   getRandomFloatWithPrecision,
@@ -115,5 +146,8 @@ export {
   getGuestsNumber,
   showAlert,
   isEscEvent,
-  isEnterEvent
+  isEnterEvent,
+  debounce,
+  onFileUpload,
+  FILE_TYPES
 };

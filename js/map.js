@@ -107,4 +107,11 @@ const resetMainPinMarker = () => {
   mainPinMarker.setLatLng(L.latLng(STARTING_LATITUDE, STARTING_LONGITUDE));
 }
 
-export { setUpMap, resetMainPinMarker, STARTING_LATITUDE, STARTING_LONGITUDE, renderCards, removeMapMarkers };
+export {
+  setUpMap,
+  resetMainPinMarker,
+  STARTING_LATITUDE,
+  STARTING_LONGITUDE,
+  renderCards,
+  removeMapMarkers
+};
