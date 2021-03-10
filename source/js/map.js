@@ -1,4 +1,4 @@
-/* global L:readonly */
+import L from 'leaflet';
 import { activateMapForm, fillAddress, onResetAdForm } from './form.js';
 import { createCardElement } from './cards.js';
 import { activateFilter } from './filter.js';
@@ -55,14 +55,16 @@ const removeMapMarkers = () => {
   })
 }
 
+const onMapLoad = () => {
+  activateMapForm();
+  fillAddress(STARTING_LATITUDE, STARTING_LONGITUDE);
+  onResetAdForm();
+  activateFilter();
+}
+
 const setUpMap = (advertisements) => {
   map
-    .on('load', () => {
-      activateMapForm();
-      fillAddress(STARTING_LATITUDE, STARTING_LONGITUDE);
-      onResetAdForm();
-      activateFilter();
-    })
+    .on('load', onMapLoad)
     .setView({
       lat: STARTING_LATITUDE,
       lng: STARTING_LONGITUDE,

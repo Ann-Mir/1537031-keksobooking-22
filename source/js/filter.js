@@ -2,6 +2,7 @@ import { removeMapMarkers, renderCards } from './map.js';
 import { debounce } from './util.js';
 
 const RERENDER_DELAY = 500;
+const DEFAULT_VALUE = 'any';
 
 const filterForm = document.querySelector('.map__filters');
 const filterElements = filterForm.elements;
@@ -26,14 +27,14 @@ const activateFilter = () => {
 }
 
 const checkType = (advertisement, element) => {
-  return element.value === 'any' || advertisement.offer.type === element.value;
+  return element.value === DEFAULT_VALUE || advertisement.offer.type === element.value;
 };
 
 const checkPrice = (advertisement, element) => {
   const LOW_PRICE = 10000;
   const HIGH_PRICE = 50000;
   switch (element.value) {
-    case 'any':
+    case DEFAULT_VALUE:
       return true;
     case 'low':
       return advertisement.offer.price < LOW_PRICE;
@@ -47,11 +48,11 @@ const checkPrice = (advertisement, element) => {
 }
 
 const checkRooms = (advertisement, element) => {
-  return element.value === 'any' || Number(element.value) === advertisement.offer.rooms;
+  return element.value === DEFAULT_VALUE || Number(element.value) === advertisement.offer.rooms;
 }
 
 const checkGuests = (advertisement, element) => {
-  if (element.value === 'any') {
+  if (element.value === DEFAULT_VALUE) {
     return true;
   }
   return parseInt(element.value, 10) <= advertisement.offer.guests;

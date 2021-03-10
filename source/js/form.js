@@ -1,6 +1,8 @@
 import { LOCATION_PRECISION, minPrices } from './data.js';
 import { sendData } from './api.js';
+import { debounce } from './util.js';
 
+const CHECK_DELAY = 1000;
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE_PER_NIGHT = 1000000;
@@ -18,7 +20,7 @@ const roomsNumberSelect = adForm.querySelector('#room_number');
 const adFormResetButton = adForm.querySelector('.ad-form__reset');
 const capacitySelect = adForm.querySelector('#capacity');
 
-const roomValues = {
+const roomCapacities = {
   1: [1],
   2: [1, 2],
   3: [1, 2, 3],
@@ -28,18 +30,20 @@ const roomValues = {
 const onRoomsNumberSelect = () => {
   const seatingCapacityOptions = capacitySelect.querySelectorAll('option');
   const roomsNumber =  Number(roomsNumberSelect.value);
+  const possibleCapacities = roomCapacities[roomsNumber];
+
   seatingCapacityOptions.forEach((option) => {
     option.disabled = true;
   });
 
-  roomValues[roomsNumber].forEach((seatsAmount) => {
+  possibleCapacities.forEach((seatsAmount) => {
     seatingCapacityOptions.forEach((option) => {
       if (Number(option.value) === seatsAmount) {
         option.disabled = false;
       }
     });
-    if (!roomValues[roomsNumber].includes(Number(capacitySelect.value))) {
-      const maxCapacity = roomValues[roomsNumber][roomValues[roomsNumber].length - 1];
+    if (!possibleCapacities.includes(Number(capacitySelect.value))) {
+      const maxCapacity = possibleCapacities[possibleCapacities.length - 1];
       capacitySelect.value = maxCapacity;
     }
   });
@@ -79,7 +83,7 @@ const onCheckOutChange = () => {
   checkInField.value = checkOutField.value;
 }
 
-const onTitleInput = () => {
+const onTitleInputBlur = () => {
   const valueLength = titleInput.value.length;
 
   if (valueLength < MIN_TITLE_LENGTH) {
@@ -134,7 +138,7 @@ const onResetAdForm = () => {
 typeField.addEventListener('change', onTypeChange);
 checkInField.addEventListener('change', onCheckInChange);
 checkOutField.addEventListener('change', onCheckOutChange);
-titleInput.addEventListener('input', onTitleInput);
+titleInput.addEventListener('blur', onTitleInputBlur);
 priceInput.addEventListener('input', onPriceInput);
 roomsNumberSelect.addEventListener('change', onRoomsNumberSelect);
 

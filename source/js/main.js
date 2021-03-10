@@ -1,3 +1,4 @@
+import 'leaflet/dist/leaflet.css';
 import './api.js';
 import './avatar.js';
 import './cards.js';
@@ -60,6 +61,3 @@ advertisementFormSubmit(() => {
   showSuccessModal();
   setDefaults();
 }, showErrorModal);
-
-
-

@@ -1,8 +1,10 @@
 import { isEscEvent } from './util.js';
 
+const MODAL_ZINDEX = '10000';
 const successModal = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
 const errorModal = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
 const tryAgainButton = errorModal.querySelector('.error__button');
+
 successModal.classList.add('hidden');
 errorModal.classList.add('hidden');
 document.body.append(successModal);
@@ -35,14 +37,14 @@ const onClick = (modal) => {
 
 const showSuccessModal = () => {
   successModal.classList.remove('hidden');
-  successModal.style.zIndex = '10000';
+  successModal.style.zIndex = MODAL_ZINDEX;
   successModal.addEventListener('keydown', onPopupEscKeydown(successModal));
   successModal.addEventListener('click', onClick(successModal));
 }
 
 const showErrorModal = () => {
   errorModal.classList.remove('hidden');
-  errorModal.style.zIndex = '10000';
+  errorModal.style.zIndex = MODAL_ZINDEX;
   errorModal.addEventListener('keydown', onPopupEscKeydown(errorModal));
   errorModal.addEventListener('click', onClick(errorModal));
   tryAgainButton.addEventListener('click', onClick(errorModal));

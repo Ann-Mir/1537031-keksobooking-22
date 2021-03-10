@@ -102,10 +102,6 @@ const isEscEvent = (evt) => {
   return evt.key === 'Escape' || evt.key === 'Esc';
 };
 
-const isEnterEvent = (evt) => {
-  return evt.key === 'Enter';
-};
-
 function debounce (fn, wait) {
   let t;
   return function () {
@@ -146,7 +142,6 @@ export {
   getGuestsNumber,
   showAlert,
   isEscEvent,
-  isEnterEvent,
   debounce,
   onFileUpload,
   FILE_TYPES
