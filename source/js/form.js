@@ -1,8 +1,7 @@
 import { LOCATION_PRECISION, minPrices } from './data.js';
 import { sendData } from './api.js';
-import { debounce } from './util.js';
 
-const CHECK_DELAY = 1000;
+
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE_PER_NIGHT = 1000000;
@@ -62,26 +61,26 @@ const deactivateMapForm = () => {
   mapFilters.querySelectorAll('.map__features').forEach((feature) => {
     feature.classList.add('disabled');
   })
-}
+};
 
 const fillAddress = (lat, long) => {
   const latitude = lat.toFixed(LOCATION_PRECISION);
   const longitude = long.toFixed(LOCATION_PRECISION);
   addressField.value = `${latitude} ${longitude}`;
-}
+};
 
 const onTypeChange = () => {
   priceInput.placeholder = minPrices[typeField.value];
   priceInput.min = minPrices[typeField.value];
-}
+};
 
 const onCheckInChange = () => {
   checkOutField.value = checkInField.value;
-}
+};
 
 const onCheckOutChange = () => {
   checkInField.value = checkOutField.value;
-}
+};
 
 const onTitleInputBlur = () => {
   const valueLength = titleInput.value.length;
@@ -94,7 +93,7 @@ const onTitleInputBlur = () => {
     titleInput.setCustomValidity('');
   }
   titleInput.reportValidity();
-}
+};
 
 const onPriceInput = () => {
   const price =priceInput.value;
@@ -109,7 +108,7 @@ const onPriceInput = () => {
     priceInput.setCustomValidity('');
   }
   priceInput.reportValidity();
-}
+};
 
 const activateMapForm = () => {
   adForm.classList.remove('ad-form--disabled');
@@ -126,14 +125,14 @@ const activateMapForm = () => {
     feature.classList.remove('disabled');
   });
   addressField.setAttribute('readonly', 'readonly');
-}
+};
 
 const onResetAdForm = () => {
   onTypeChange();
   onRoomsNumberSelect();
   onCheckInChange();
   onCheckOutChange();
-}
+};
 
 typeField.addEventListener('change', onTypeChange);
 checkInField.addEventListener('change', onCheckInChange);

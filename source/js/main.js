@@ -42,7 +42,7 @@ const setDefaults = () => {
   onResetAdForm();
   renderCards(advertisementsToRender);
   fillAddress(STARTING_LATITUDE, STARTING_LONGITUDE);
-}
+};
 
 deactivateMapForm();
 deactivateFilter();

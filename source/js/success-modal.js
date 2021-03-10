@@ -14,7 +14,7 @@ const closeModal = (modal) => {
   modal.classList.add('hidden');
   modal.removeEventListener('keydown', onPopupEscKeydown(modal));
   modal.removeEventListener('click', onClick(modal));
-}
+};
 
 const onPopupEscKeydown = (modal) => {
   return (evt) => {
@@ -33,14 +33,14 @@ const onClick = (modal) => {
     evt.preventDefault();
     closeModal(modal);
   }
-}
+};
 
 const showSuccessModal = () => {
   successModal.classList.remove('hidden');
   successModal.style.zIndex = MODAL_ZINDEX;
   successModal.addEventListener('keydown', onPopupEscKeydown(successModal));
   successModal.addEventListener('click', onClick(successModal));
-}
+};
 
 const showErrorModal = () => {
   errorModal.classList.remove('hidden');
@@ -48,6 +48,6 @@ const showErrorModal = () => {
   errorModal.addEventListener('keydown', onPopupEscKeydown(errorModal));
   errorModal.addEventListener('click', onClick(errorModal));
   tryAgainButton.addEventListener('click', onClick(errorModal));
-}
+};
 
 export { showSuccessModal, closeModal, showErrorModal };

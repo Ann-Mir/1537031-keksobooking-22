@@ -17,14 +17,14 @@ const deactivateFilter = () => {
   for (let i = 0; i < filterElements.length; i++) {
     filterElements[i].setAttribute('disabled', '');
   }
-}
+};
 
 const activateFilter = () => {
   filterForm.classList.remove('.map__filters--disabled');
   for (let i = 0; i < filterElements.length; i++) {
     filterElements[i].removeAttribute('disabled');
   }
-}
+};
 
 const checkType = (advertisement, element) => {
   return element.value === DEFAULT_VALUE || advertisement.offer.type === element.value;
@@ -45,18 +45,18 @@ const checkPrice = (advertisement, element) => {
     default:
       return false;
   }
-}
+};
 
 const checkRooms = (advertisement, element) => {
   return element.value === DEFAULT_VALUE || Number(element.value) === advertisement.offer.rooms;
-}
+};
 
 const checkGuests = (advertisement, element) => {
   if (element.value === DEFAULT_VALUE) {
     return true;
   }
   return parseInt(element.value, 10) <= advertisement.offer.guests;
-}
+};
 
 const checkFeatures = (advertisement) => {
   const checkedFeatures = filterForm.querySelectorAll('.map__checkbox:checked');
@@ -68,7 +68,7 @@ const checkFeatures = (advertisement) => {
   })
 
   return count === checkedFeatures.length;
-}
+};
 
 const getFilteredAds = (advertisements) => {
   const filteredAdvertisements = advertisements.filter((advertisement) => {
@@ -81,7 +81,7 @@ const getFilteredAds = (advertisements) => {
     )
   })
   return filteredAdvertisements;
-}
+};
 
 const onFilterChange = (advertisements) => {
   return debounce((evt) => {
@@ -90,7 +90,7 @@ const onFilterChange = (advertisements) => {
     removeMapMarkers();
     renderCards(filteredAdds);
   }, RERENDER_DELAY);
-}
+};
 
 const setFilterChange = (advertisements) => {
   filterForm.addEventListener('change', onFilterChange(advertisements));
@@ -101,4 +101,4 @@ export {
   activateFilter,
   filterForm,
   setFilterChange
-}
+};

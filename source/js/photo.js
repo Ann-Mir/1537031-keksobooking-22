@@ -11,7 +11,7 @@ upload.append(preview);
 
 const clearOutPhoto = () => {
   preview.src = '';
-}
+};
 
 fileChooser.addEventListener('change', onFileUpload(fileChooser, preview, FILE_TYPES));
 

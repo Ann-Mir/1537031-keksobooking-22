@@ -5,7 +5,7 @@ const preview = document.querySelector('.ad-form-header__preview img');
 
 const clearOutAvatar = () => {
   preview.src = 'img/muffin-grey.svg';
-}
+};
 
 fileChooser.addEventListener('change', onFileUpload(fileChooser, preview, FILE_TYPES));
 
