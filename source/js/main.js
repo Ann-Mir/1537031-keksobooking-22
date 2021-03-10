@@ -25,9 +25,9 @@ import {
 } from './form.js';
 import { showErrorModal, showSuccessModal } from './success-modal.js';
 import { deactivateFilter, filterForm, setFilterChange } from './filter.js';
-import { clearOutAvatar } from './avatar.js';
-import { clearOutPhoto } from './photo.js';
 
+import { clearOutPhoto } from './photo.js';
+import { clearOutAvatar } from './avatar';
 
 const GET_URL = 'https://22.javascript.pages.academy/keksobooking/data';
 let advertisementsToRender = [];

@@ -9,4 +9,5 @@ const clearOutAvatar = () => {
 
 fileChooser.addEventListener('change', onFileUpload(fileChooser, preview, FILE_TYPES));
 
-export { clearOutAvatar }
+
+export { clearOutAvatar };
