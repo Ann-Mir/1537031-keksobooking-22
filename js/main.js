@@ -24,7 +24,9 @@ import {
   onResetAdForm
 } from './form.js';
 import { showErrorModal, showSuccessModal } from './success-modal.js';
-import {deactivateFilter, filterForm, setFilterChange} from './filter.js';
+import { deactivateFilter, filterForm, setFilterChange } from './filter.js';
+import { clearOutAvatar } from './avatar.js';
+import { clearOutPhoto } from './photo.js';
 
 
 const GET_URL = 'https://22.javascript.pages.academy/keksobooking/data';
@@ -33,6 +35,8 @@ let advertisementsToRender = [];
 const setDefaults = () => {
   filterForm.reset();
   adForm.reset();
+  clearOutAvatar();
+  clearOutPhoto();
   resetMainPinMarker();
   onResetAdForm();
   renderCards(advertisementsToRender);

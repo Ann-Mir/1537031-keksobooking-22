@@ -8,7 +8,7 @@ const getData = (url, onSuccess, onFail) => {
     }))
     .then(onSuccess)
     .catch(onFail);
-}
+};
 
 const sendData = (url, onSuccess, onFail, body) => {
   return fetch(
