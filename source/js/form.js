@@ -1,4 +1,4 @@
-import { LOCATION_PRECISION, minPrices } from './data.js';
+import { LOCATION_PRECISION, MinPrices } from './data.js';
 import { sendData } from './api.js';
 
 
@@ -6,6 +6,13 @@ const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE_PER_NIGHT = 1000000;
 const POST_URL = 'https://22.javascript.pages.academy/keksobooking';
+
+const RoomCapacities = {
+  1: [1],
+  2: [1, 2],
+  3: [1, 2, 3],
+  100: [0],
+};
 
 const adForm = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
@@ -19,17 +26,10 @@ const roomsNumberSelect = adForm.querySelector('#room_number');
 const adFormResetButton = adForm.querySelector('.ad-form__reset');
 const capacitySelect = adForm.querySelector('#capacity');
 
-const roomCapacities = {
-  1: [1],
-  2: [1, 2],
-  3: [1, 2, 3],
-  100: [0],
-};
-
 const onRoomsNumberSelect = () => {
   const seatingCapacityOptions = capacitySelect.querySelectorAll('option');
   const roomsNumber =  Number(roomsNumberSelect.value);
-  const possibleCapacities = roomCapacities[roomsNumber];
+  const possibleCapacities = RoomCapacities[roomsNumber];
 
   seatingCapacityOptions.forEach((option) => {
     option.disabled = true;
@@ -70,8 +70,8 @@ const fillAddress = (lat, long) => {
 };
 
 const onTypeChange = () => {
-  priceInput.placeholder = minPrices[typeField.value];
-  priceInput.min = minPrices[typeField.value];
+  priceInput.placeholder = MinPrices[typeField.value];
+  priceInput.min = MinPrices[typeField.value];
 };
 
 const onCheckInChange = () => {
@@ -98,7 +98,7 @@ const onTitleInputBlur = () => {
 const onPriceInput = () => {
   const price =priceInput.value;
   const type = typeField.value;
-  const minPrice = minPrices[type];
+  const minPrice = MinPrices[type];
 
   if (price < minPrice) {
     priceInput.setCustomValidity(`Стоимость должна быть не менее ${minPrice}`);

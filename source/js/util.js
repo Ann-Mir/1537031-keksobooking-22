@@ -102,6 +102,8 @@ const isEscEvent = (evt) => {
   return evt.key === 'Escape' || evt.key === 'Esc';
 };
 
+const isEnterEvent = (evt) => evt.key === 'Enter';
+
 const debounce = (fn, wait) => {
   let timeout;
   return function () {
@@ -132,6 +134,10 @@ const onFileUpload = (fileChooser, preview, fileTypes) => {
   }
 };
 
+const clearOutImage = (element, source) => {
+  element.src = source;
+}
+
 export {
   getRandomInteger,
   getRandomFloatWithPrecision,
@@ -141,8 +147,10 @@ export {
   getRoomsNumber,
   getGuestsNumber,
   showAlert,
+  isEnterEvent,
   isEscEvent,
   debounce,
   onFileUpload,
+  clearOutImage,
   FILE_TYPES
 };

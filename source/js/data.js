@@ -23,7 +23,7 @@ const LOCATION_PRECISION = 5;
 const ADDS_COUNT = 10;
 const MIN_ADDS = 0;
 
-const minPrices = {
+const MinPrices = {
   'palace': 10000,
   'flat': 1000,
   'house': 5000,
@@ -99,7 +99,7 @@ const getOffers = () => {
 export {
   getOffers,
   LOCATION_PRECISION,
-  minPrices,
+  MinPrices,
   MIN_ADDS,
   ADDS_COUNT
 };

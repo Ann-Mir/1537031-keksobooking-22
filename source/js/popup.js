@@ -1,25 +1,21 @@
-import { isEscEvent } from './util.js';
+import { isEnterEvent, isEscEvent } from './util.js';
 
 const MODAL_ZINDEX = '10000';
-const successModal = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
+const popup = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
 const errorModal = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
 const tryAgainButton = errorModal.querySelector('.error__button');
 
-successModal.classList.add('hidden');
+popup.classList.add('hidden');
 errorModal.classList.add('hidden');
-document.body.append(successModal);
+document.body.append(popup);
 document.body.append(errorModal);
 
-const closeModal = (modal) => {
-  modal.classList.add('hidden');
-  modal.removeEventListener('keydown', onPopupEscKeydown(modal));
-  modal.removeEventListener('click', onClick(modal));
-};
-
-const onPopupEscKeydown = (modal) => {
+const onPopupKeydown = (modal) => {
   return (evt) => {
-    if (isEscEvent(evt)) {
+    if (isEscEvent(evt) || isEnterEvent(evt)) {
       evt.preventDefault();
+      document.removeEventListener('keydown', onPopupKeydown(modal));
+      modal.removeEventListener('click', onClick(modal));
       closeModal(modal);
     }
     if (modal === errorModal) {
@@ -35,17 +31,21 @@ const onClick = (modal) => {
   }
 };
 
+const closeModal = (modal) => {
+  modal.classList.add('hidden');
+};
+
 const showSuccessModal = () => {
-  successModal.classList.remove('hidden');
-  successModal.style.zIndex = MODAL_ZINDEX;
-  successModal.addEventListener('keydown', onPopupEscKeydown(successModal));
-  successModal.addEventListener('click', onClick(successModal));
+  popup.classList.remove('hidden');
+  popup.style.zIndex = MODAL_ZINDEX;
+  document.addEventListener('keydown', onPopupKeydown(popup));
+  popup.addEventListener('click', onClick(popup));
 };
 
 const showErrorModal = () => {
   errorModal.classList.remove('hidden');
   errorModal.style.zIndex = MODAL_ZINDEX;
-  errorModal.addEventListener('keydown', onPopupEscKeydown(errorModal));
+  document.addEventListener('keydown', onPopupKeydown(errorModal));
   errorModal.addEventListener('click', onClick(errorModal));
   tryAgainButton.addEventListener('click', onClick(errorModal));
 };
