@@ -23,7 +23,7 @@ const LOCATION_PRECISION = 5;
 const ADDS_COUNT = 10;
 const MIN_ADDS = 0;
 
-const minPrices = {
+const MinPrices = {
   'palace': 10000,
   'flat': 1000,
   'house': 5000,
@@ -58,7 +58,7 @@ const PHOTOS = [
 const getAvatarUrl = () => {
   const number = getRandomInteger(MIN_AVATAR_NUMBER , MAX_AVATAR_NUMBER);
   return `img/avatars/user0${number}.png`;
-}
+};
 
 const getOffer = () => {
   const advertisement = {
@@ -85,7 +85,7 @@ const getOffer = () => {
 
   advertisement.offer.address = `${advertisement.location.lat}, ${advertisement.location.lng}`;
   return advertisement;
-}
+};
 
 const getOffers = () => {
   const offers = [];
@@ -93,13 +93,13 @@ const getOffers = () => {
     offers.push(getOffer());
   }
   return offers;
-}
+};
 
 
 export {
   getOffers,
   LOCATION_PRECISION,
-  minPrices,
+  MinPrices,
   MIN_ADDS,
   ADDS_COUNT
 };

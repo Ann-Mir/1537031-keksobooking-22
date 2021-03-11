@@ -14,7 +14,7 @@ const getRandomInteger = (from, to) => {
   }
 
   return Math.floor(Math.random() * (max - min + 1) + min);
-}
+};
 
 const getRandomFloatWithPrecision = (from, to, decimalPlaces= 1) => {
   if (from < 0 || to < 0) {
@@ -25,19 +25,19 @@ const getRandomFloatWithPrecision = (from, to, decimalPlaces= 1) => {
   const max = Math.max(from, to);
 
   return Number((Math.random() * (max - min) + min).toFixed(decimalPlaces));
-}
+};
 
 const getRandomValueFromArray = (arr) => {
   const index = getRandomInteger(0, arr.length - 1);
   return arr[index];
-}
+};
 
 const shuffleArray = (arr) => {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
-}
+};
 
 const getRandomLengthArray = (arr) => {
   const length = getRandomInteger(0, arr.length);
@@ -45,7 +45,7 @@ const getRandomLengthArray = (arr) => {
   shuffleArray(shuffledArray);
   const result = shuffledArray.slice(0, length);
   return result;
-}
+};
 
 const getOfferType = (type) => {
   const offers = {
@@ -55,11 +55,11 @@ const getOfferType = (type) => {
     palace: 'Дворец',
   }
   return offers[type];
-}
+};
 
 const getGuestsNumber = (guests) => {
   return (guests % 10 === 1 && guests !== 11) ? `${guests} гостя` : `${guests} гостей`;
-}
+};
 
 const getRoomsNumber = (rooms) => {
   const reminder = rooms % 10;
@@ -73,7 +73,7 @@ const getRoomsNumber = (rooms) => {
     return `${rooms} комнаты`;
   }
   return `${rooms} комнат`;
-}
+};
 
 const showAlert = (message='Не удалось загрузить данные') => {
   return () => {
@@ -96,23 +96,21 @@ const showAlert = (message='Не удалось загрузить данные'
       alertContainer.remove();
     }, ALERT_SHOW_TIME);
   }
-}
+};
 
 const isEscEvent = (evt) => {
   return evt.key === 'Escape' || evt.key === 'Esc';
 };
 
-const isEnterEvent = (evt) => {
-  return evt.key === 'Enter';
-};
+const isEnterEvent = (evt) => evt.key === 'Enter';
 
-function debounce (fn, wait) {
-  let t;
+const debounce = (fn, wait) => {
+  let timeout;
   return function () {
-    clearTimeout(t);
-    t = setTimeout(() => fn.apply(this, arguments), wait);
+    clearTimeout(timeout);
+    timeout = setTimeout(() => fn.apply(this, arguments), wait);
   }
-}
+};
 
 const onFileUpload = (fileChooser, preview, fileTypes) => {
   return (evt) => {
@@ -134,6 +132,10 @@ const onFileUpload = (fileChooser, preview, fileTypes) => {
       reader.readAsDataURL(file);
     }
   }
+};
+
+const clearOutImage = (element, source) => {
+  element.src = source;
 }
 
 export {
@@ -145,9 +147,10 @@ export {
   getRoomsNumber,
   getGuestsNumber,
   showAlert,
-  isEscEvent,
   isEnterEvent,
+  isEscEvent,
   debounce,
   onFileUpload,
+  clearOutImage,
   FILE_TYPES
 };

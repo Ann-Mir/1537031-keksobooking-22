@@ -1,4 +1,4 @@
-/* global L:readonly */
+import L from 'leaflet';
 import { activateMapForm, fillAddress, onResetAdForm } from './form.js';
 import { createCardElement } from './cards.js';
 import { activateFilter } from './filter.js';
@@ -16,7 +16,7 @@ const onPinMove = (evt) => {
   const lat = evt.target.getLatLng().lat;
   const long = evt.target.getLatLng().lng;
   fillAddress(lat, long);
-}
+};
 
 const renderCards = (advertisements) => {
   advertisements.forEach(({author, location, offer}) => {
@@ -47,22 +47,24 @@ const renderCards = (advertisements) => {
       );
     markers.push(marker);
   });
-}
+};
 
 const removeMapMarkers = () => {
   markers.forEach((marker) => {
     marker.remove();
   })
-}
+};
+
+const onMapLoad = () => {
+  activateMapForm();
+  fillAddress(STARTING_LATITUDE, STARTING_LONGITUDE);
+  onResetAdForm();
+  activateFilter();
+};
 
 const setUpMap = (advertisements) => {
   map
-    .on('load', () => {
-      activateMapForm();
-      fillAddress(STARTING_LATITUDE, STARTING_LONGITUDE);
-      onResetAdForm();
-      activateFilter();
-    })
+    .on('load', onMapLoad)
     .setView({
       lat: STARTING_LATITUDE,
       lng: STARTING_LONGITUDE,
@@ -76,7 +78,7 @@ const setUpMap = (advertisements) => {
   ).addTo(map);
 
   renderCards(advertisements);
-}
+};
 
 const initMainPinMarker = () => {
   const mainPinIcon = L.icon({
@@ -96,7 +98,7 @@ const initMainPinMarker = () => {
     },
   );
   return mainPinMarker;
-}
+};
 
 const mainPinMarker = initMainPinMarker();
 
@@ -105,7 +107,7 @@ mainPinMarker.on('move', onPinMove);
 
 const resetMainPinMarker = () => {
   mainPinMarker.setLatLng(L.latLng(STARTING_LATITUDE, STARTING_LONGITUDE));
-}
+};
 
 export {
   setUpMap,

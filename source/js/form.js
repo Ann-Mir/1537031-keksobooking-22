@@ -1,10 +1,18 @@
-import { LOCATION_PRECISION, minPrices } from './data.js';
+import { LOCATION_PRECISION, MinPrices } from './data.js';
 import { sendData } from './api.js';
+
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE_PER_NIGHT = 1000000;
 const POST_URL = 'https://22.javascript.pages.academy/keksobooking';
+
+const RoomCapacities = {
+  1: [1],
+  2: [1, 2],
+  3: [1, 2, 3],
+  100: [0],
+};
 
 const adForm = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
@@ -18,28 +26,23 @@ const roomsNumberSelect = adForm.querySelector('#room_number');
 const adFormResetButton = adForm.querySelector('.ad-form__reset');
 const capacitySelect = adForm.querySelector('#capacity');
 
-const roomValues = {
-  1: [1],
-  2: [1, 2],
-  3: [1, 2, 3],
-  100: [0],
-};
-
 const onRoomsNumberSelect = () => {
   const seatingCapacityOptions = capacitySelect.querySelectorAll('option');
   const roomsNumber =  Number(roomsNumberSelect.value);
+  const possibleCapacities = RoomCapacities[roomsNumber];
+
   seatingCapacityOptions.forEach((option) => {
     option.disabled = true;
   });
 
-  roomValues[roomsNumber].forEach((seatsAmount) => {
+  possibleCapacities.forEach((seatsAmount) => {
     seatingCapacityOptions.forEach((option) => {
       if (Number(option.value) === seatsAmount) {
         option.disabled = false;
       }
     });
-    if (!roomValues[roomsNumber].includes(Number(capacitySelect.value))) {
-      const maxCapacity = roomValues[roomsNumber][roomValues[roomsNumber].length - 1];
+    if (!possibleCapacities.includes(Number(capacitySelect.value))) {
+      const maxCapacity = possibleCapacities[possibleCapacities.length - 1];
       capacitySelect.value = maxCapacity;
     }
   });
@@ -58,28 +61,28 @@ const deactivateMapForm = () => {
   mapFilters.querySelectorAll('.map__features').forEach((feature) => {
     feature.classList.add('disabled');
   })
-}
+};
 
 const fillAddress = (lat, long) => {
   const latitude = lat.toFixed(LOCATION_PRECISION);
   const longitude = long.toFixed(LOCATION_PRECISION);
   addressField.value = `${latitude} ${longitude}`;
-}
+};
 
 const onTypeChange = () => {
-  priceInput.placeholder = minPrices[typeField.value];
-  priceInput.min = minPrices[typeField.value];
-}
+  priceInput.placeholder = MinPrices[typeField.value];
+  priceInput.min = MinPrices[typeField.value];
+};
 
 const onCheckInChange = () => {
   checkOutField.value = checkInField.value;
-}
+};
 
 const onCheckOutChange = () => {
   checkInField.value = checkOutField.value;
-}
+};
 
-const onTitleInput = () => {
+const onTitleInputBlur = () => {
   const valueLength = titleInput.value.length;
 
   if (valueLength < MIN_TITLE_LENGTH) {
@@ -90,12 +93,12 @@ const onTitleInput = () => {
     titleInput.setCustomValidity('');
   }
   titleInput.reportValidity();
-}
+};
 
 const onPriceInput = () => {
   const price =priceInput.value;
   const type = typeField.value;
-  const minPrice = minPrices[type];
+  const minPrice = MinPrices[type];
 
   if (price < minPrice) {
     priceInput.setCustomValidity(`Стоимость должна быть не менее ${minPrice}`);
@@ -105,7 +108,7 @@ const onPriceInput = () => {
     priceInput.setCustomValidity('');
   }
   priceInput.reportValidity();
-}
+};
 
 const activateMapForm = () => {
   adForm.classList.remove('ad-form--disabled');
@@ -122,19 +125,19 @@ const activateMapForm = () => {
     feature.classList.remove('disabled');
   });
   addressField.setAttribute('readonly', 'readonly');
-}
+};
 
 const onResetAdForm = () => {
   onTypeChange();
   onRoomsNumberSelect();
   onCheckInChange();
   onCheckOutChange();
-}
+};
 
 typeField.addEventListener('change', onTypeChange);
 checkInField.addEventListener('change', onCheckInChange);
 checkOutField.addEventListener('change', onCheckOutChange);
-titleInput.addEventListener('input', onTitleInput);
+titleInput.addEventListener('blur', onTitleInputBlur);
 priceInput.addEventListener('input', onPriceInput);
 roomsNumberSelect.addEventListener('change', onRoomsNumberSelect);
 

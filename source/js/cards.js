@@ -13,7 +13,7 @@ const isElementVisible = (element, components) => {
   }
   element.setAttribute('style', 'visibility: visible;');
   return true;
-}
+};
 
 const setAdPhotos = (photosElement, offer) => {
   if (!isElementVisible(photosElement, offer.photos)) {
@@ -23,7 +23,7 @@ const setAdPhotos = (photosElement, offer) => {
   photosElement.innerHTML = offer.photos.map((photo) => {
     return `<img src="${photo}" class="popup__photo" width="45" height="40" alt="Фотография жилья">`;
   }).join('');
-}
+};
 
 const setAdFeatures = (featuresElement, offer) => {
   if (!isElementVisible(featuresElement, offer.features)) {
@@ -33,9 +33,9 @@ const setAdFeatures = (featuresElement, offer) => {
   featuresElement.innerHTML = offer.features.map((feature) => {
     return `<li class="popup__feature popup__feature--${feature}"></li>`;
   }).join('');
-}
+};
 
-const createCardElement = (({author, offer}) => {
+const createCardElement = ({author, offer}) => {
   const cardElement = cardTemplate.cloneNode(true);
 
   cardElement.querySelector('.popup__title').textContent = offer.title;
@@ -56,6 +56,6 @@ const createCardElement = (({author, offer}) => {
   cardElement.querySelector('.popup__avatar').setAttribute('src', `${author.avatar}`);
 
   return cardElement;
-})
+};
 
 export { createCardElement };
