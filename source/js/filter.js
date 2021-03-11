@@ -3,6 +3,8 @@ import { debounce } from './util.js';
 
 const RERENDER_DELAY = 500;
 const DEFAULT_VALUE = 'any';
+const LOW_PRICE = 10000;
+const HIGH_PRICE = 50000;
 
 const filterForm = document.querySelector('.map__filters');
 const filterElements = filterForm.elements;
@@ -31,8 +33,6 @@ const checkType = (advertisement, element) => {
 };
 
 const checkPrice = (advertisement, element) => {
-  const LOW_PRICE = 10000;
-  const HIGH_PRICE = 50000;
   switch (element.value) {
     case DEFAULT_VALUE:
       return true;
@@ -52,10 +52,7 @@ const checkRooms = (advertisement, element) => {
 };
 
 const checkGuests = (advertisement, element) => {
-  if (element.value === DEFAULT_VALUE) {
-    return true;
-  }
-  return parseInt(element.value, 10) <= advertisement.offer.guests;
+  return element.value === DEFAULT_VALUE ? true : parseInt(element.value, 10) <= advertisement.offer.guests;
 };
 
 const checkFeatures = (advertisement) => {

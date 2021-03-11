@@ -1,14 +1,14 @@
 import { isEnterEvent, isEscEvent } from './util.js';
 
 const MODAL_ZINDEX = '10000';
-const popup = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
-const errorModal = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
-const tryAgainButton = errorModal.querySelector('.error__button');
+const successPopup = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
+const errorPopup = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
+const tryAgainButton = errorPopup.querySelector('.error__button');
 
-popup.classList.add('hidden');
-errorModal.classList.add('hidden');
-document.body.append(popup);
-document.body.append(errorModal);
+successPopup.classList.add('hidden');
+errorPopup.classList.add('hidden');
+document.body.append(successPopup);
+document.body.append(errorPopup);
 
 const onPopupKeydown = (modal) => {
   return (evt) => {
@@ -18,8 +18,8 @@ const onPopupKeydown = (modal) => {
       modal.removeEventListener('click', onClick(modal));
       closeModal(modal);
     }
-    if (modal === errorModal) {
-      tryAgainButton.removeEventListener('click', onClick(errorModal));
+    if (modal === errorPopup) {
+      tryAgainButton.removeEventListener('click', onClick(errorPopup));
     }
   }
 };
@@ -35,19 +35,20 @@ const closeModal = (modal) => {
   modal.classList.add('hidden');
 };
 
-const showSuccessModal = () => {
-  popup.classList.remove('hidden');
-  popup.style.zIndex = MODAL_ZINDEX;
-  document.addEventListener('keydown', onPopupKeydown(popup));
-  popup.addEventListener('click', onClick(popup));
+const showModal = (modal) => {
+  modal.classList.remove('hidden');
+  modal.style.zIndex = MODAL_ZINDEX;
+  document.addEventListener('keydown', onPopupKeydown(successPopup));
+  modal.addEventListener('click', onClick(successPopup));
+}
+
+const showSuccessPopup = () => {
+  showModal(successPopup);
 };
 
-const showErrorModal = () => {
-  errorModal.classList.remove('hidden');
-  errorModal.style.zIndex = MODAL_ZINDEX;
-  document.addEventListener('keydown', onPopupKeydown(errorModal));
-  errorModal.addEventListener('click', onClick(errorModal));
-  tryAgainButton.addEventListener('click', onClick(errorModal));
+const showErrorPopup = () => {
+  showModal(errorPopup);
+  tryAgainButton.addEventListener('click', onClick(errorPopup));
 };
 
-export { showSuccessModal, closeModal, showErrorModal };
+export { closeModal, showErrorPopup, showSuccessPopup };

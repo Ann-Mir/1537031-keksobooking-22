@@ -17,7 +17,7 @@ import {
 } from './map.js';
 import { getData } from './api.js';
 import { ADDS_COUNT, MIN_ADDS } from './data.js';
-import {clearOutImage, showAlert} from './util.js';
+import { clearOutImage, showAlert } from './util.js';
 import {
   adForm,
   adFormResetButton,
@@ -26,7 +26,7 @@ import {
   fillAddress,
   onResetAdForm
 } from './form.js';
-import { showErrorModal, showSuccessModal } from './popup.js';
+import { showErrorPopup, showSuccessPopup } from './popup.js';
 import { deactivateFilter, filterForm, setFilterChange } from './filter.js';
 
 import { PHOTO_DEFAULT, previewPhoto } from './photo.js';
@@ -62,6 +62,6 @@ getData(GET_URL, (advertisements) => {
 }, showAlert(ALERT_MESSAGE));
 
 advertisementFormSubmit(() => {
-  showSuccessModal();
+  showSuccessPopup();
   setDefaults();
-}, showErrorModal);
+}, showErrorPopup);
