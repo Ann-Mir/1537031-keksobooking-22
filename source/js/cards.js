@@ -4,6 +4,7 @@ import {
   getRoomsNumber
 } from './util.js';
 
+
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 
 const isElementVisible = (element, components) => {
@@ -57,5 +58,6 @@ const createCardElement = ({author, offer}) => {
 
   return cardElement;
 };
+
 
 export { createCardElement };

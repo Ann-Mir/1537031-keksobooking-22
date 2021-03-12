@@ -1,7 +1,7 @@
-import { LOCATION_PRECISION, MinPrices } from './data.js';
 import { sendData } from './api.js';
 
 
+const LOCATION_PRECISION = 5;
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE_PER_NIGHT = 1000000;
@@ -13,6 +13,13 @@ const RoomCapacities = {
   3: [1, 2, 3],
   100: [0],
 };
+
+const MinPrices = {
+  'palace': 10000,
+  'flat': 1000,
+  'house': 5000,
+  'bungalow': 0,
+}
 
 const adForm = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
@@ -154,7 +161,10 @@ const advertisementFormSubmit = (onSuccess, onError) => {
   });
 };
 
+
 export {
+  LOCATION_PRECISION,
+  MinPrices,
   deactivateMapForm,
   activateMapForm,
   fillAddress,

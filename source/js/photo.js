@@ -1,5 +1,6 @@
 import { onFileUpload, FILE_TYPES } from './util.js';
 
+
 const PHOTO_DEFAULT = '';
 
 const fileChooser = document.querySelector('.ad-form__upload input[type=file]');

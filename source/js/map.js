@@ -3,6 +3,7 @@ import { activateMapForm, fillAddress, onResetAdForm } from './form.js';
 import { createCardElement } from './cards.js';
 import { activateFilter } from './filter.js';
 
+
 const STARTING_LATITUDE = 35.6804;
 const STARTING_LONGITUDE = 139.7690;
 const STARING_ZOOM = 9;
@@ -108,6 +109,7 @@ mainPinMarker.on('move', onPinMove);
 const resetMainPinMarker = () => {
   mainPinMarker.setLatLng(L.latLng(STARTING_LATITUDE, STARTING_LONGITUDE));
 };
+
 
 export {
   setUpMap,

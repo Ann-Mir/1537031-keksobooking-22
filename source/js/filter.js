@@ -1,6 +1,7 @@
 import { removeMapMarkers, renderCards } from './map.js';
 import { debounce } from './util.js';
 
+
 const RERENDER_DELAY = 500;
 const DEFAULT_VALUE = 'any';
 const LOW_PRICE = 10000;
@@ -92,6 +93,7 @@ const onFilterChange = (advertisements) => {
 const setFilterChange = (advertisements) => {
   filterForm.addEventListener('change', onFilterChange(advertisements));
 };
+
 
 export {
   deactivateFilter,

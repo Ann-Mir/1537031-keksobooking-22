@@ -2,7 +2,6 @@ import 'leaflet/dist/leaflet.css';
 import './api.js';
 import './avatar.js';
 import './cards.js';
-import './data.js';
 import './form.js';
 import './map.js';
 import './photo.js';
@@ -16,7 +15,6 @@ import {
   STARTING_LONGITUDE
 } from './map.js';
 import { getData } from './api.js';
-import { ADDS_COUNT, MIN_ADDS } from './data.js';
 import { clearOutImage, showAlert } from './util.js';
 import {
   adForm,
@@ -34,6 +32,8 @@ import { AVATAR_DEFAULT, previewAvatar } from './avatar';
 
 const ALERT_MESSAGE = 'Не удалось загрузить данные об объектах';
 const GET_URL = 'https://22.javascript.pages.academy/keksobooking/data';
+const ADDS_COUNT = 10;
+const MIN_ADDS = 0;
 
 let advertisementsToRender = [];
 
@@ -65,3 +65,7 @@ advertisementFormSubmit(() => {
   showSuccessPopup();
   setDefaults();
 }, showErrorPopup);
+
+
+export { MIN_ADDS };
+export { ADDS_COUNT };

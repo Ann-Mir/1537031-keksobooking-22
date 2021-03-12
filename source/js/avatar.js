@@ -1,5 +1,6 @@
 import { onFileUpload, FILE_TYPES } from './util.js';
 
+
 const AVATAR_DEFAULT = 'img/muffin-grey.svg';
 
 const fileChooser = document.querySelector('.ad-form__field input[type=file]');

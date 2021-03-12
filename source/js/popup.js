@@ -1,5 +1,6 @@
 import { isEnterEvent, isEscEvent } from './util.js';
 
+
 const MODAL_ZINDEX = '10000';
 const successPopup = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
 const errorPopup = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
@@ -50,5 +51,6 @@ const showErrorPopup = () => {
   showModal(errorPopup);
   tryAgainButton.addEventListener('click', onClick(errorPopup));
 };
+
 
 export { closeModal, showErrorPopup, showSuccessPopup };

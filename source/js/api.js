@@ -27,4 +27,5 @@ const sendData = (url, onSuccess, onFail, body) => {
     .catch(onFail);
 };
 
+
 export { getData, sendData };
