@@ -61,8 +61,9 @@ const checkFeatures = (advertisement) => {
   let count = 0;
 
   checkedFeatures.forEach((feature) => {
-    if (advertisement.offer.features.includes(feature.value))
+    if (advertisement.offer.features.includes(feature.value)) {
       count++;
+    }
   })
 
   return count === checkedFeatures.length;
