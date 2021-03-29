@@ -39,8 +39,8 @@ const closeModal = (modal) => {
 const showModal = (modal) => {
   modal.classList.remove('hidden');
   modal.style.zIndex = MODAL_ZINDEX;
-  document.addEventListener('keydown', onPopupKeydown(successPopup));
-  modal.addEventListener('click', onClick(successPopup));
+  document.addEventListener('keydown', onPopupKeydown(modal));
+  modal.addEventListener('click', onClick(modal));
 }
 
 const showSuccessPopup = () => {
